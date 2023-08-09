@@ -1,7 +1,7 @@
 
 "use client"
 
-import { Button , Input} from "antd";
+import { Button , Input, Pagination} from "antd";
 import Head from "next/head";
 import Image from "next/image";
 import { SearchOutlined } from "@ant-design/icons";
@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { FilterOutlined } from "@ant-design/icons";
 import OrderModal from '../components/orderModal';
 const Index = () => {
+  const ITEMS_PER_PAGE = 5;
 
   const orders = [
     {
@@ -94,9 +95,6 @@ const Index = () => {
     },
   ];
 
-  const [isContentWrapped, setIsContentWrapped] = useState(false);
-  const [isContentWrapped2, setIsContentWrapped2] = useState(false);
-  const [isContentWrapped3, setIsContentWrapped3] = useState(false);
   const actionsRef = useRef();
   const [showActions, setShowActions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -135,56 +133,16 @@ const Index = () => {
   }, [orders]);
   
 
-  useEffect(() => {
-    const handleResize = () => {
-      const windowWidth = window.innerWidth;
-      setIsContentWrapped(windowWidth < 759); 
-    };
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
 
- 
-    handleResize();
+  
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleResize2 = () => {
-      const windowWidth = window.innerWidth;
-      setIsContentWrapped2(windowWidth < 420); 
-    };
-    
-
- 
-    handleResize2();
-
-    window.addEventListener("resize", handleResize2);
-
-    return () => {
-      window.removeEventListener("resize", handleResize2);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleResize3 = () => {
-      const windowWidth = window.innerWidth;
-      setIsContentWrapped3(windowWidth < 381); 
-    };
-    
-
- 
-    handleResize3();
-
-    window.addEventListener("resize", handleResize3);
-
-    return () => {
-      window.removeEventListener("resize", handleResize3);
-    };
-  }, []);
 
 
   const handlemodify = (orderId) => {
@@ -434,7 +392,7 @@ const Index = () => {
             </tbody>
           </table>
           <div className="lg:hidden flex flex-col space-y-4">
-  {orders.map((order) => (
+  {filteredOrders.slice(startIndex, endIndex).map((order) => (
     <div key={order.id} className="bg-white rounded-md border border-grey-500 shadow-md my-5 p-3">    
       <div className="flex justify-between items-center border-b border-[#A51F6C] mt-2 pb-3 flex-wrap w-full">
         <div className="">
@@ -481,6 +439,15 @@ const Index = () => {
     
     </div>
   ))}
+            <Pagination
+            current={currentPage}
+            pageSize={ITEMS_PER_PAGE}
+            total={filteredOrders.length}
+            onChange={onPageChange}
+            className="my-4 flex justify-center"
+          />
+
+
 </div>
 
 
