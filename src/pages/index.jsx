@@ -274,8 +274,8 @@ const Index = () => {
       </Head>
       <div className="h-full w-full my-4 py-3  bg-[#FFFFFF] rounded-md">
       <div className="w-full px-3  py-1 border-b border-[#DFDFDF]">
-            <div className="flex justify-between items-center w-full px-3 ">
-            <div className="relative flex items-center">
+      <div className="flex justify-between items-center w-full px-3 flex-wrap-reverse">
+            <div className="relative flex items-center w-full sm:w-auto">
               <Image src="/images/search.svg" className="text-gray-500 absolute top-[13px] left-4 z-10" width={15} height={15} />
               <Input
                 placeholder="Search Order..."
@@ -283,23 +283,25 @@ const Index = () => {
                 style={{ borderRadius: "5px" }}
               />
             </div>
+            <div className="flex items-center w-full sm:w-auto">
             <Button
               type="primary"
-                className="create-order-button"
+                className="create-order-button w-full sm:w-auto mb-4 sm:mb-0"
               onClick={handleOrderModal}
               style={{
                 backgroundColor: "#A51F6C",
                 color: "#FFFFFF",
                 borderRadius: "8px",
                 height: "45px",
-                width: "140px",
+                
               }}
             >
               Create Order
             </Button>
             </div>
+            </div>
             
-     <div className="flex justify-between items-center my-5 px-2 w-full  ">
+     <div className="flex justify-between items-center my-5 px-2 w-full flex-wrap  ">
           <div className="flex text-[#777777]">
   <button
     className={`uppercase font-[500] mr-3 ${
@@ -349,12 +351,14 @@ const Index = () => {
     Cancelled {" ("}{cancelled}{") "}
   </button>
 </div>
+<div className="flex items-center justify-center w-full sm:w-auto pt-6 sm:mt-0">
 <button
               className={`rounded-md bg-[#2668E81A] border border-[#2668E842] px-3 py-1 text-[#2668e8] font-[500] mr-3`}
               onClick={handleSortByDate}
             >
                <FilterOutlined style={{ color: "#2668e8" }} />
             </button>
+            </div>
           </div>
 <div>
            
@@ -367,9 +371,9 @@ const Index = () => {
           </div>
       <div>
         {/* Table */}
-        <div className="w-full h-full overflow-x-auto px-5 py-4 ">
+        <div className="w-full h-full  px-5 py-4 ">
 
-          <table className="w-full hidden md:table border border-[#DFDFDF] " style={{borderRadius: "30px"}}>
+          <table className="w-full hidden lg:table border border-[#DFDFDF] " style={{borderRadius: "30px"}}>
           
             <thead className=" my-3 fontFamily  border-b border-[DFDFDF] uppercase">
               <tr className="text-[#777777]  text-left px-4 py-2">
@@ -429,134 +433,57 @@ const Index = () => {
               ))}
             </tbody>
           </table>
-          {/* <div className="md:hidden flex flex-col space-y-4">
-            {orders.map((order) => (
-              <div
-                key={order.id}
-                className={`bg-white rounded-md shadow-md p-4 ${
-                  selectedRows.includes(order.id) ? 'bg-blue-100 shadow-lg' : ''
-                }`}
-              >
-                <div className="flex items-center mb-4 ">
-                  <div className="rounded-lg overflow-hidden mr-4">
-                    <Image
-                      src={order.image}
-                      width={60}
-                      height={60}
-                      alt="Product Image"
-                    />
-                  </div>
-                  <div>
-                  <p className="font-semibold text-base">{order.name}</p>
-                  <div>
-                  <p>Category: {" "}{order.category}</p>
-                  <p>OrderId: {" "}{order.id}</p>
-                  </div>
-                 
-                  </div>
-                  
-                 
-                  <div className="ml-auto">
-                    <button
-                      className="p-1 rounded-md hover:bg-gray-200"
-                      onClick={() => handleActionsToggle(order.id)}
-                    >
-                      <Image
-                        src="/images/more.svg"
-                        width={3}
-                        height={3}
-                        alt="More Actions"
-                      />
-                    </button>
-                    <div className="relative md:block" ref={actionsRef}>
-                      {showActions && selectedProductId === order.id && (
-                        <div
-                          className="absolute right-0 top-0  w-32 bg-white rounded-md shadow-lg overflow-hidden border "
-                          style={{ border: '1px solid #E5E7EB' }}
-                        >
-                          <button
-                            className="block w-full py-1 text-sm text-left px-4 transition-colors duration-200 hover:bg-red-600 text-white overflow-hidden"
-                            style={{ backgroundColor: '#F73B3F' }}
-                            onClick={() => handleDelete(order.id)}
-                           
-                          >
-                            Delete
-                          </button>
-                          <button
-                            className="block w-full py-1 text-sm text-left px-4 transition-colors duration-200 hover:bg-green-600 text-white overflow-hidden"
-                            style={{ backgroundColor: '#0852C1' }}
-                            onClick={() => handlemodify(product.id)}
-                          >
-                            Edit
-                          </button>
-                        </div>
+          <div className="lg:hidden flex flex-col space-y-4">
+  {orders.map((order) => (
+    <div key={order.id} className="bg-white rounded-md border border-grey-500 shadow-md my-5 p-3">    
+      <div className="flex justify-between items-center border-b border-[#A51F6C] mt-2 pb-3 flex-wrap w-full">
+        <div className="">
+        <h3 className="font-semibold text-base">Order ID</h3>
+        <p className="text-base">{order.orderId}</p>
+        </div>
+     
+     <div>
+     <h3 className="font-semibold text-base">Customer</h3>
+        <p className="text-base">{order.customer}</p>
+     </div>
+       
+        <div className="w-10 h-10 py-3 rounded-full border border-[#A51F6C] flex items-center justify-center">
+          <Image src="/images/more.svg" width={4} height={4} alt="More Options" />
+        </div>
+      </div>
 
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between border-b border-blue-500 pb-3 sm:text-[17px]   flex-wrap items-center mb-2">
-                 
-                  <div className="flex flex-wrap">
-                    <p className="text-[#0852C1] ">Subcategories:</p>
-                    <div className="flex flex-wrap">
-                    <p className="ml-2 text-[#777777]">sub category-1</p>{","}
-                    <p className="ml-2 text-[#777777]">sub category-2</p>
-                    </div>
-                   
-                  </div>
-                  
-                 
-                </div>
-                <div className="flex justify-between border-b border-blue-500 pb-3 sm:text-[17px]   flex-wrap items-center mb-2">
-                  <p className="text-[#777777] font-[400]  flex">
-                    <p className="text-[#0852C1] mr-1">SKU:</p>{" "}{order.sku}
-                  </p>
-                  <p className="text-[#777777] font-[400] flex ">
-                  <p className="text-[#0852C1] mr-1">Payment:</p> {" "}{order.Payment.price}
-                  </p>
-                  <div className="flex py-2 px-2 bg-blue-500 rounded-md">
-                  <p className="text-white font-[400] flex ">
-                  {order.Payment.status}
-                  </p>
-                  </div>
-                  
-                 
-                </div>
-                <div className="flex justify-between pt-3  pb-3 mb-2 flex-wrap  sm:text-[17px]">
-                  <p className="text-[#777777] font-[400]  flex items-center">
-                  <p className="text-[#0852C1] mr-1">Rating:</p> 
-                  <div className="flex">
-                  {Array.from({ length: order.rate }, (_, index) => (
-                        <Image
-                          key={index}
-                          src="/images/start.svg"
-                          width={16}
-                          height={16}
-                          alt="Star"
-                        />
-                      ))}
-                  </div>
-                  </p>
-                  <div className="flex items-start justify-center text-white">
-                  <p
-                      className={`rounded-md px-2 py-2 ${
-                        order.status === "Cancelled"
-                          ? "bg-[#D94B38]"
-                          : order.status === "Completed"
-                          ? "bg-[#49E258]"
-                          : "bg-[#F0E74A]"
-                      }`}
-                    >
+      <div className="flex  items-center mt-2 w-full border-b border-[#A51F6C] pb-3 mt-3 flex-wrap ">
+
+      <div className=" mr-[30%]">
+        <h3 className="font-semibold text-base">Payment</h3>
+        <p className="text-base">{order.payment}</p>
+      </div>
+      <div className="">
+        <h3 className="font-semibold text-base">Order Date</h3>
+        <p className="text-base">{order.orderDate}</p>
+      </div>
+      </div>
+      
+     
+      
+      <div className="flex justify-between items-center pb-3 mt-3 w-full flex-wrap">
+        <div>
+        <p className="font-semibold text-lg">Price</p>
+        <p className="font-[600] text-blue-600 text-lg">{order.amount}</p>
+        </div>
+    
+        <p className={`rounded-md px-2 py-1 text-[18px] font-[400] text-center `}
+                        style={getStatusStyle(order.status)}
+                      >
                       {order.status}
                     </p>
-                  </div>
-                  
-                </div>
-               
-              </div>
-            ))}
-          </div>   */}
+      </div>
+    
+    </div>
+  ))}
+</div>
+
+
         </div>
       </div>
 

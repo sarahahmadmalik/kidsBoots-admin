@@ -184,13 +184,14 @@ const Index = ({children}) => {
                         <div>
                             <h1 className={
                                 `text-[24px] font-[700] font-inter`}
+                                style={{fontSize: "24px !important", fontWeight: "700 !important"}}
                             >
                                 {
                                 getPageTitle(router.pathname)
                             }</h1>
                         </div>
-                        <div className="flex">
-                            <div className="cursor-pointer">
+                        <div className="flex items-center">
+                            <div className="cursor-pointer ">
                                 <Dropdown menu={
                                         {items}
                                     }
@@ -212,7 +213,7 @@ const Index = ({children}) => {
                                     </div>
                                 </Dropdown>
                             </div>
-                            <div className="md:hidden flex">
+                            <div className="md:hidden flex " style={{marginLeft: "1rem"}}>
                                 <Dropdown overlay={navMenu}
                                     trigger={
                                         ["click"]
