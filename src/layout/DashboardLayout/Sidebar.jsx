@@ -22,7 +22,7 @@ const Sidebar = ({ role }) => {
   return (
     <Sider
       style={{ paddingTop: "1rem", background: "white" }}
-      className=""
+      className=" hidden md:block"
     >
       <div className="flex items-center justify-center">
         <Image src={"/images/clubFoot.svg"} width={170} height={60} alt="logo" />

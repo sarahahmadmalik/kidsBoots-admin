@@ -161,7 +161,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:flex-row flex flex-col   my-5 md:my-0 mx-4 gap-4">
+          <div className="w-full md:flex-row flex flex-col   my-5 md:my-0 sm:mx-4 gap-4">
             <div className="w-full  bg-[#FFFFFF] shadow-sm rounded-md py-5">
                 <div className="px-6">
                 <h2 className="font-[500] text-[18px]">Edit Profile</h2>
@@ -306,7 +306,7 @@ const Index = () => {
                     style={{ resize: "none" }}
                   />
                 </div>
-                <div className="w-full flex justify-end ">
+                <div className="w-full flex justify-center sm:justify-end ">
                 <button
                   type="submit"
                   className="mt-6 bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
@@ -322,8 +322,8 @@ const Index = () => {
                   <h2 className="font-[500] text-[18px]">Change Password</h2>
                 </div>
                 <div className="mt-3">
-                <div className="flex items-start mt-4 pb-3 w-full">
-          <div className="w-[50%]">
+                <div className="flex flex-col sm:flex-row items-start mt-4 pb-3 w-full">
+          <div className="sm:w-[50%] w-full">
             <label className="text-[16px] font-normal text-[#777777]">
               Current Password:
             </label>
@@ -335,7 +335,7 @@ const Index = () => {
               className="w-full py-2 px-3 border border-[#2668E81A] rounded transition duration-300 bg-[#2668E803] focus:outline-none focus:border-[#2668E855] hover:border-[#2668E855]"
             />
           </div>
-          <div className="w-[50%] ml-4">
+          <div className="sm:w-[50%] w-full sm:ml-4">
             <label className="text-[16px] font-normal text-[#777777]">
               New Password:
             </label>
@@ -378,7 +378,7 @@ const Index = () => {
           </div>
         </div>
 
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-center sm:justify-end">
                   <button
                     type="submit"
                     className=" bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
