@@ -18,7 +18,7 @@ import Head from "next/head";
 import {SearchOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 import {useState, useEffect} from "react";
 import {EditOutlined} from "@ant-design/icons";
-import BuyerModal from "../../components/Buyers/BuyerModal";
+import BuyerModal from "../../components/Buyers/buyerModal";
 import EditModal from "../../components/Buyers/EditModal";
 
 const {Option} = Select;
