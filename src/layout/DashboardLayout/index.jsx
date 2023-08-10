@@ -213,7 +213,7 @@ const Index = ({children}) => {
                                     </div>
                                 </Dropdown>
                             </div>
-                            <div className="md:hidden flex " style={{marginLeft: "1rem"}}>
+                            <div className="hidden  " style={{marginLeft: "1rem"}}>
                                 <Dropdown overlay={navMenu}
                                     trigger={
                                         ["click"]

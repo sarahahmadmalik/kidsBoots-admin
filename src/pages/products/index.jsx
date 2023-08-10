@@ -16,7 +16,7 @@ import {
 import Image from "next/image";
 import Head from "next/head";
 import {SearchOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
-import {useState, useEffect, useRef, useMemo} from "react";
+import {useState, useEffect} from "react";
 import {FilterOutlined, EditOutlined} from "@ant-design/icons";
 import ProductModal from "../../components/ProductModal";
 import EditModal from "../../components/EditModal";
