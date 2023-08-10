@@ -53,44 +53,44 @@ const Index = ({children}) => {
     };
 
     const navMenu = (
-        <Menu>
+        <Menu className="custom-dropdown-menu">
             <Menu.Item key="Orders"
-                icon={<DashboardOutlined/>}
+                icon={<Image src="/images/order.svg" alt="orders-icon" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/">
                     Orders
                 </Link>
             </Menu.Item>
             <Menu.Item key="Products"
-                icon={<UserOutlined/>}
+                icon={<Image src="/images/products.svg" alt="products" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/products">
                     Products
                 </Link>
             </Menu.Item>
             <Menu.Item key="Buyers"
-                icon={<ShoppingCartOutlined/>}
+                icon={<Image src="/images/buyer.svg" alt="buyers" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/buyers">
                     Buyers
                 </Link>
             </Menu.Item>
             <Menu.Item key="Sellers"
-                icon={<AppstoreAddOutlined/>}
+                icon={<Image src="/images/sellers.svg" alt="sellers" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/sellers">
                     Sellers
                 </Link>
             </Menu.Item>
             <Menu.Item key="Earning"
-                icon={<UnorderedListOutlined/>}
+                icon={<Image src="/images/earnings.svg" alt="earning" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/earning">
                     Earning
                 </Link>
             </Menu.Item>
             <Menu.Item key="Profile"
-                icon={<HistoryOutlined/>}
+                icon={<Image src="/images/user.svg" alt="profile" width={17} height={17} />}
                 onClick={handleMenuClick}>
                 <Link href="/profile">
                     Profile

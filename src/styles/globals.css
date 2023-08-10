@@ -148,3 +148,16 @@ body{
   background: #D13F62 !important;
   color: #ffffff;
 }
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover {
+  background-color: #A51F6C !important;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover img {
+  filter: brightness(0) invert(1) !important;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover span {
+  color: white;
+}
+

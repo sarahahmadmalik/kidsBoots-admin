@@ -25,7 +25,7 @@ const Sidebar = ({ role }) => {
       className="hidden md:block"
     >
       <div className="flex items-center justify-center">
-        <Image src={"/images/clubFoot.svg"} width={170} height={60} />
+        <Image src={"/images/clubFoot.svg"} width={170} height={60} alt="logo" />
       </div>
       <Menu
         style={{

@@ -311,7 +311,7 @@ const Index = () => {
                   borderRadius: "8px",
                   height: "45px",
                 }}>
-                Create Product
+                Add Product
               </Button>
             </div>
           </div>
