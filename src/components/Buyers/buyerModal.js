@@ -127,6 +127,7 @@ function BuyerModal({ visible, onCancel, onSubmit }) {
           </Upload>
         </Form.Item>
       </Form>
+      
     </Modal>
   );
 }

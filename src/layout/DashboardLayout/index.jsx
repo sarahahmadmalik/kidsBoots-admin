@@ -232,6 +232,7 @@ const Index = ({children}) => {
                 </Header>
                 <Content>{children}</Content>
             </Layout>
+        
         </Layout>
     );
 };

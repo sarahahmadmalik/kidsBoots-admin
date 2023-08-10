@@ -104,7 +104,9 @@ function EditModal({ visible, onCancel, onOk, editForm, selectedBuyer }) {
           <Input type="number" placeholder="Enter Spent Amount" />
         </Form.Item>
       </Form>
+      
     </Modal>
+    
   );
 }
 

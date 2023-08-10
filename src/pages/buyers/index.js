@@ -524,6 +524,7 @@ const handleBuyerModal = () => {
 
       </div>
     </div>
+    
   );
 };
 
