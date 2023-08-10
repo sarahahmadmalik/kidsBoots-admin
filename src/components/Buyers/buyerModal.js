@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, Input, Select, Button, DatePicker, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
-function buyerModal({ visible, onCancel, onSubmit }) {
+function BuyerModal({ visible, onCancel, onSubmit }) {
   const [form] = Form.useForm();
   const [status, setStatus] = useState('Default');
   const [fileList, setFileList] = useState([]);
@@ -131,4 +131,4 @@ function buyerModal({ visible, onCancel, onSubmit }) {
   );
 }
 
-export default buyerModal;
+export default BuyerModal;

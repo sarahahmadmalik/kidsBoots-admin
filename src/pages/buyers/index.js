@@ -18,7 +18,8 @@ import Head from "next/head";
 import {SearchOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 import {useState, useEffect} from "react";
 import {EditOutlined} from "@ant-design/icons";
-import BuyerModal from "../../components/Buyers/buyerModal";
+import BuyerModal from "../../components/Buyers/BuyerModal";
+import EditModal from "../../components/Buyers/EditModal";
 
 const {Option} = Select;
 
@@ -166,40 +167,39 @@ const Index = () => {
     setSelectedBuyer(buyer);
   };
 
+  
+  
   const handleEditSubmit = ({
     image: fileListImage,
-    status,
-    price,
-    earning,
+    group,
+    spent,
     ...values
   }) => {
-    const numericPrice = parseFloat(price);
-    const numericEarning = parseFloat(earning);
-
-    if (isNaN(numericPrice) || isNaN(numericEarning)) {
-      message.error("Invalid price or earning value");
+    const numericSpent = parseFloat(spent);
+  
+    if (isNaN(numericSpent)) {
+      message.error("Invalid spent value");
       return;
     }
-
-    const updatedProducts = filteredProducts.map((product) =>
-      product.id === selectedProduct.id
+  
+    const updatedBuyers = filteredBuyers.map((buyer) =>
+      buyer.id === selectedBuyer.id
         ? {
-            ...product,
+            ...buyer,
             ...values,
             image: fileListImage,
-            status,
-            price: numericPrice,
-            earning: numericEarning,
+            group,
+            spent: numericSpent,
           }
-        : product,
+        : buyer
     );
-
-    setFilteredProducts(updatedProducts);
-    setSelectedProductIds([]);
+  
+    setFilteredBuyers(updatedBuyers);
     setEditModalVisible(false);
-
-    message.success("Product updated successfully.");
+  
+    message.success("Buyer updated successfully.");
   };
+  
 
   const handleEditModalOpen = (buyer) => {
     setSelectedBuyer(buyer);
@@ -495,6 +495,19 @@ const handleBuyerModal = () => {
           }
           }
         />
+
+<EditModal
+          visible={editModalVisible}
+          onCancel={() => setEditModalVisible(false)}
+          onOk={({image: fileListImage, status, ...values}) =>
+            handleEditSubmit({image: fileListImage, status, ...values})
+          }
+          editForm={editForm}
+          selectedBuyer={selectedBuyer}
+        />
+
+
+
 
         <Modal
           title="Confirm Deletion"
