@@ -125,3 +125,26 @@ body{
   background: #F9F9F9;
 }
 
+.submit-button {
+  background: #a51f6c !important;
+  border-color: #a51f6c;
+  color: #fff;
+}
+
+.submit-button:hover {
+  background: #DB3293 !important;
+  border-color: #DB3293;
+  color: #fff;
+}
+
+
+.more-button {
+  border: none; 
+  background-color: transparent; 
+}
+
+
+.ant-dropdown-menu-item.delete-option:hover {
+  background: #D13F62 !important;
+  color: #ffffff;
+}

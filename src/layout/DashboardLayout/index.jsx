@@ -220,7 +220,7 @@ const Index = ({children}) => {
                                 }>
                                     <a className="text-[#0852C1]">
                                         <MenuOutlined style={
-                                            {fontSize: "24px"}
+                                            {fontSize: "24px", color: "#A51F6C"}
                                         }/>
                                     </a>
                                 </Dropdown>
