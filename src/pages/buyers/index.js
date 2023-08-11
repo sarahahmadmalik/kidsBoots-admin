@@ -203,7 +203,7 @@ const Index = () => {
   
   const handleEditModalOpen = (buyer) => {
     setSelectedBuyer(buyer);
-    
+    setShowActions(false);
     const registeredDate = moment(buyer.registered, 'MMM DD,YYYY');
     
     editForm.setFieldsValue({

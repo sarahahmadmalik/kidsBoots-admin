@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button } from "antd";
 import routes from "@/routes/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -103,6 +103,27 @@ const Sidebar = ({ role }) => {
           }
         })}
       />
+        <Button
+        type="text"
+        style={{
+          position: "absolute",
+          bottom: "4rem",
+          left: "40%",
+          transform: "translateX(-50%)",
+          
+        }}
+        className="flex items-center font-[16px] text-[500] font-poppins text-[#A51F6C] mt-auto mb-2"
+        icon={
+          <Image
+            src={"/images/logout.svg"} 
+            alt="Logout"
+            width={16}
+            height={16}
+          />
+        }
+      >
+        Log Out
+      </Button>
       
     </Sider>
   );

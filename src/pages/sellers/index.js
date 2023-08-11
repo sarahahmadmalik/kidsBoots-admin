@@ -164,7 +164,6 @@ const Index = () => {
 
   const handleActionsToggle = (sellerId) => {
     setSelectedSellerId(null);
-
     setSelectedSellerId(sellerId);
     const seller = sellers.find((s) => s.id === sellerId);
     setSelectedSeller(seller);

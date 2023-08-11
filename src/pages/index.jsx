@@ -1,21 +1,30 @@
 "use client";
-
-import { Button, Input, Pagination } from "antd";
+import {
+  Button,
+  Input,
+  Pagination,
+  Modal,
+  message,
+  Dropdown,
+  Menu,
+  Form,
+} from "antd";
 import Head from "next/head";
 import Image from "next/image";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, EditOutlined, DeleteOutlined, MoreOutlined} from "@ant-design/icons";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { FilterOutlined } from "@ant-design/icons";
 import OrderModal from "../components/orderModal";
+import EditModal from "../components/Orders/EditModal";
+import moment from 'moment';
 const Index = () => {
   const ITEMS_PER_PAGE = 5;
-
   const orders = [
     {
       id: 1,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "New",
@@ -24,7 +33,7 @@ const Index = () => {
       id: 2,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "Cancelled",
@@ -33,7 +42,7 @@ const Index = () => {
       id: 3,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "New",
@@ -42,7 +51,7 @@ const Index = () => {
       id: 4,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "In Progress",
@@ -51,7 +60,7 @@ const Index = () => {
       id: 5,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "Completed",
@@ -60,7 +69,7 @@ const Index = () => {
       id: 6,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "In Progress",
@@ -69,7 +78,7 @@ const Index = () => {
       id: 7,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "New",
@@ -78,7 +87,7 @@ const Index = () => {
       id: 8,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "New",
@@ -87,26 +96,30 @@ const Index = () => {
       id: 9,
       orderId: "PK756466",
       customer: "James Williams",
-      amount: "$124.00",
+      amount: 124.00, // Changed to a number
       payment: "PayPal",
       orderDate: "August 06, 2023",
       status: "Cancelled",
     },
   ];
+  
 
   const actionsRef = useRef();
   const [showActions, setShowActions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showModifyModal, setShowModifyModal] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [showOrderModal, setShowOrderModal] = useState(false);
-
   const [activeButton, setActiveButton] = useState("All");
   const [filteredOrders, setFilteredOrders] = useState(orders);
   const [delivered, setDelivered] = useState(0);
   const [pickup, setPickup] = useState(0);
   const [cancelled, setCancelled] = useState(0);
   const [sortByDate, setSortByDate] = useState(false);
+  const [editForm] = Form.useForm();
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
+  useState(false);
 
   const handleSortByDate = () => {
     setSortByDate(!sortByDate);
@@ -159,21 +172,25 @@ const Index = () => {
     setShowModifyModal(true);
   };
 
-  const handleModifyToggle = (productId) => {
-    setSelectedProductId(productId);
+  const handleModifyToggle = (orderId) => {
+    setSelectedOrderId(orderId);
     setShowModify(!showModify);
     setShowModifyModal(true);
   };
 
+  const handleDeleteConfirmed = () => {
+    setShowDeleteModal(false);
+    handleDeleteConfirmation()
+  };
+
   const handleDeleteConfirmation = () => {
     const updatedOrders = orders.filter(
-      (order) => order.id !== selectedProductId,
+      (order) => order.id !== selectedOrderId,
     );
-    const updated = orders.filter((order) => order.id !== selectedProductId);
+    const updated = orders.filter((order) => order.id !== selectedOrderId);
 
-    setAllOrders(updatedOrders);
-    setSelectedProductId(null);
-    setShowDeleteModal(false);
+    setFilteredOrders(updatedOrders);
+    setSelectedOrderId(null);
   };
 
   const handleOrderModal = () => {
@@ -182,24 +199,20 @@ const Index = () => {
   };
 
   const handleDelete = (orderId) => {
-    setShowActions(false);
+    setSelectedOrderId(null);
     setShowDeleteModal(true);
   };
 
   const handleDeleteCancel = () => {
     setShowDeleteModal(false);
-    setSelectedProductId(null);
+    setSelectedOrderId(null);
   };
 
   const handleModifyCancel = () => {
     setShowModifyModal(false);
-    setSelectedProductId(null);
+    setSelectedOrderId(null);
   };
 
-  const handleActionsToggle = (orderId) => {
-    setSelectedProductId(orderId);
-    setShowActions(!showActions);
-  };
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -230,6 +243,64 @@ const Index = () => {
       default:
         return {};
     }
+  };
+
+  
+  const handleActionsToggle = (orderId) => {
+    setSelectedOrderId(null)
+    setSelectedOrderId(orderId);
+
+    const order = filteredOrders.find((o) => o.id === orderId);
+    setSelectedOrder(order);
+  };
+
+  const handleEditSubmit = ({ status, amount, ...values }) => {
+    const numericAmount = parseFloat(amount.replace("$", "").replace(",", ""));
+  
+    if (isNaN(numericAmount)) {
+      message.error("Invalid amount value");
+      return;
+    }
+  
+    const updatedOrders = filteredOrders.map((order) =>
+      order.id === selectedOrder.id
+        ? {
+            ...order,
+            ...values,
+            status,
+            amount: numericAmount,
+          }
+        : order
+    );
+  
+    setFilteredOrders(updatedOrders);
+    setSelectedOrderId(null);
+    setShowModifyModal(false);
+  
+    message.success("Order updated successfully.");
+  };
+  
+
+  const handleEditModalOpen = (order) => {
+    setSelectedOrderId(null)
+    setSelectedOrder(order);
+    const orderDateMoment = moment(order.orderDate, "MMMM DD, YYYY");
+   
+    editForm.setFieldsValue({
+      orderId: order.orderId,
+      customer: order.customer,
+      amount: order.amount.toFixed(2),
+      payment: order.payment,
+      orderDate: orderDateMoment, 
+      status: order.status,
+    });
+
+    setShowModifyModal(true);
+  };
+
+  const handleDeleteEach = () => {
+    setSelectedOrderId(selectedOrder.id);
+    handleDeleteConfirmation();
   };
 
   return (
@@ -388,7 +459,7 @@ const Index = () => {
                       </p>
                     </td>
                     <td className="text-[#110F0F] text-center font-[400] text-[14px]">
-                      {order.amount}
+                      ${order.amount}
                     </td>
                     <td className="text-[#110F0F] text-center font-[400] text-[14px]">
                       {order.payment}
@@ -404,14 +475,36 @@ const Index = () => {
                       </p>
                     </td>{" "}
                     <td className="flex justify-around items-center">
-                      <button className="w-[50px] flex items-center justify-center my-3">
-                        <Image
-                          src="/images/more.svg"
-                          width={3}
-                          height={3}
-                          alt="more"
-                        />
-                      </button>
+                     
+                      <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => handleEditModalOpen(order)}>
+                      <EditOutlined /> Edit
+                    </Menu.Item>
+                    <Menu.Item
+                      onClick={() => handleDelete()}
+                      className="delete-option"
+                    >
+                      <DeleteOutlined /> Delete
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={["click"]}
+                placement="bottomRight"
+                visible={selectedOrderId === order.id}
+                onVisibleChange={(visible) => {
+                  if (!visible) {
+                    setSelectedOrderId(null);
+                  }
+                }}
+              >
+                <Button
+                  icon={<MoreOutlined />}
+                  className="more-button"
+                  onClick={() => handleActionsToggle(order.id)}
+                />
+              </Dropdown>
                     </td>
                   </tr>
                 ))}
@@ -458,7 +551,7 @@ const Index = () => {
                     <div>
                       <p className="font-semibold text-lg">Price</p>
                       <p className="font-[600] text-blue-600 text-lg">
-                        {order.amount}
+                        ${order.amount}
                       </p>
                     </div>
 
@@ -480,6 +573,28 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        <EditModal
+          visible={showModifyModal}
+          onCancel={() => setShowModifyModal(false)}
+          onOk={({image: fileListImage, status, ...values}) =>
+            handleEditSubmit({image: fileListImage, status, ...values})
+          }
+          editForm={editForm}
+          selectedOrder={selectedOrder}
+        />
+        <Modal
+          title="Confirm Deletion"
+          visible={showDeleteModal}
+          onCancel={() => setShowDeleteModal(false)}
+          onOk={handleDeleteConfirmed}
+          okText="Yes"
+          cancelText="No"
+          okButtonProps={{
+            style: {backgroundColor: "#D83535", color: "#FFFFFF"},
+          }}>
+          <p>Are you sure you want to delete the selected Order?</p>
+        </Modal>
 
         <OrderModal
           visible={showOrderModal}
