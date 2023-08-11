@@ -20,7 +20,7 @@ import {useState, useEffect} from "react";
 import {EditOutlined} from "@ant-design/icons";
 import BuyerModal from "../../components/Buyers/buyerModal";
 import EditModal from "../../components/Buyers/EditModal";
-
+import moment from 'moment';
 const {Option} = Select;
 
 const Index = () => {
@@ -162,12 +162,12 @@ const Index = () => {
   };
 
   const handleActionsToggle = (buyerId) => {
+    setSelectedBuyerId(null);
+  
     setSelectedBuyerId(buyerId);
     const buyer = buyers.find((b) => b.id === buyerId);
     setSelectedBuyer(buyer);
   };
-
-  
   
   const handleEditSubmit = ({
     image: fileListImage,
@@ -200,20 +200,23 @@ const Index = () => {
     message.success("Buyer updated successfully.");
   };
   
-
   const handleEditModalOpen = (buyer) => {
     setSelectedBuyer(buyer);
+    
+    const registeredDate = moment(buyer.registered, 'MMM DD,YYYY');
+    
     editForm.setFieldsValue({
       id: buyer.id,
       name: buyer.name,
-      registered:  buyer.registered,
+      registered: registeredDate,
       country: buyer.country,
       group: buyer.group,
       spent: buyer.spent.toFixed(2),
     });
-
+  
     setEditModalVisible(true);
   };
+  
 
   const handleDeleteEach = () => {
     setSelectedBuyerId(selectedBuyer);

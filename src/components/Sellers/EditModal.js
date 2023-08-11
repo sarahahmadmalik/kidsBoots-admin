@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const { Option } = Select;
 
-function EditModal({ visible, onCancel, onOk, editForm, selectedBuyer }) {
+function EditModal({ visible, onCancel, onOk, editForm, selectedSeller }) {
   const [status, setStatus] = useState('Default');
   const [fileList, setFileList] = useState([]);
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -53,7 +53,7 @@ function EditModal({ visible, onCancel, onOk, editForm, selectedBuyer }) {
 
   return (
     <Modal
-      title="Edit Buyer"
+      title="Edit Seller"
       visible={visible}
       onCancel={handleCancel}
       okText="Save"
@@ -64,12 +64,12 @@ function EditModal({ visible, onCancel, onOk, editForm, selectedBuyer }) {
         </Button>,
       ]}
     >
-      <Form form={editForm} layout="vertical" initialValues={selectedBuyer}>
-        <Form.Item name="id" label="Buyer ID" rules={[{ required: true, message: 'Enter Buyer ID' }]}>
-          <Input placeholder="Enter Buyer ID" />
+      <Form form={editForm} layout="vertical" initialValues={selectedSeller}>
+        <Form.Item name="id" label="Seller ID" rules={[{ required: true, message: 'Enter Seller ID' }]}>
+          <Input placeholder="Enter Seller ID" />
         </Form.Item>
-        <Form.Item name="name" label="Buyer Name" rules={[{ required: true, message: 'Enter Buyer Name' }]}>
-          <Input placeholder="Enter Buyer Name" />
+        <Form.Item name="name" label="Seller Name" rules={[{ required: true, message: 'Enter Seller Name' }]}>
+          <Input placeholder="Enter Seller Name" />
         </Form.Item>
         <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Enter Country' }]}>
           <Input placeholder="Enter Country" />
@@ -91,16 +91,16 @@ function EditModal({ visible, onCancel, onOk, editForm, selectedBuyer }) {
         </Form.Item>
         <Form.Item
           name="spent"
-          label="Spent Amount"
+          label="Earn Amount"
           rules={[
             {
               required: true,
               validator: (_, value) =>
-                isNaN(value) ? Promise.reject('Spent Amount should be a valid number') : Promise.resolve(),
+                isNaN(value) ? Promise.reject('Earn Amount should be a valid number') : Promise.resolve(),
             },
           ]}
         >
-          <Input type="number" placeholder="Enter Spent Amount" />
+          <Input type="number" placeholder="Enter Earn Amount" />
         </Form.Item>
       </Form>
       
