@@ -120,6 +120,7 @@ const Index = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editForm] = Form.useForm();
   const [selectedBuyer, setSelectedBuyer] = useState(null);
+  const [selectAll, setSelectAll] = useState(false);
 
   const handleDeleteConfirmation = () => {
     setShowDeleteConfirmationModal(true);
@@ -232,10 +233,20 @@ const handleBuyerModal = () => {
 }
 
 
+const handleHeaderCheckboxChange = () => {
+  const newSelectAll = !selectedBuyerIds.length || selectedBuyerIds.length !== filteredBuyers.length;
+  const updatedBuyers = filteredBuyers.map((buyer) => ({
+    ...buyer,
+    selected: newSelectAll,
+  }));
+  setFilteredBuyers(updatedBuyers);
+  setSelectedBuyerIds(newSelectAll ? buyers.map((buyer) => buyer.id) : []);
+};
+
   return (
     <div className="w-full h-full bg-[F9F9F9] px-4 ">
       <Head>
-        <title>Products</title>
+        <title>Buyers</title>
       </Head>
       <div className="h-full w-full my-4 py-3  bg-[#FFFFFF] rounded-md">
         <div className="w-full px-3  py-1 border-b border-[#DFDFDF]">
@@ -291,7 +302,8 @@ const handleBuyerModal = () => {
               <thead className="my-3 fontFamily border-b border-[DFDFDF] uppercase">
                 <tr className="text-[#777777] text-left px-4 py-2">
                   <th className="px-2 w-30 font-[500] text-center text-sm md:text-[14px]">
-                    <Checkbox />
+                    <Checkbox   checked={selectedBuyerIds.length === filteredBuyers.length}
+              onChange={handleHeaderCheckboxChange} />
                   </th>
                   <th className=" font-[500] text-center text-sm md:text-[14px]">
                     Name

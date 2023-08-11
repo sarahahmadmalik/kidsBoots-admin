@@ -121,6 +121,10 @@ const Index = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editForm] = Form.useForm();
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProductIds, setSelectedProductIds] = useState([]);
+  const [allRowsSelected, setAllRowsSelected] = useState(false);
+
 
   const handleDeleteConfirmation = () => {
     setShowDeleteConfirmationModal(true);
@@ -167,8 +171,7 @@ const Index = () => {
     setDisabled(disabledProducts.length);
   }, [products]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedProductIds, setSelectedProductIds] = useState([]);
+ 
 
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -277,6 +280,18 @@ const Index = () => {
       default:
         return {};
     }
+  };
+
+
+  const handleHeaderCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
+    setAllRowsSelected(isChecked);
+
+    setFilteredProducts((prevProducts) =>
+      prevProducts.map((product) => ({ ...product, selected: isChecked }))
+    );
+
+    setSelectedProductIds(isChecked ? filteredProducts.map((product) => product.id) : []);
   };
 
   return (
@@ -392,7 +407,8 @@ const Index = () => {
               <thead className="my-3 fontFamily border-b border-[DFDFDF] uppercase">
                 <tr className="text-[#777777] text-left px-4 py-2">
                   <th className="px-2 w-0 font-[500] text-center text-sm md:text-[14px]">
-                    <Checkbox />
+                    <Checkbox  checked={allRowsSelected}
+                onChange={handleHeaderCheckboxChange}/>
                   </th>
                   <th className=" font-[500] text-center text-sm md:text-[14px]">
                     Products

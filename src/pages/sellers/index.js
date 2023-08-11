@@ -116,7 +116,6 @@ const Index = () => {
   const [showSellerModal, setShowSellerModal] = useState(false);
   const [activeButton, setActiveButton] = useState("All");
   const [filteredSellers, setFilteredSellers] = useState(sellers);
-  const [sortByDate, setSortByDate] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -231,6 +230,25 @@ const Index = () => {
     setShowSellerModal(true);
   };
 
+  const handleHeaderCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setFilteredSellers((prevSellers) => {
+      const updatedSellers = prevSellers.map((seller) => ({
+        ...seller,
+        selected: isChecked,
+      }));
+
+      const updatedSelectedIds = isChecked
+        ? updatedSellers.map((seller) => seller.id)
+        : [];
+
+      setSelectedSellerIds(updatedSelectedIds);
+
+      return updatedSellers;
+    });
+  };
+
+
   return (
     <div className="w-full h-full bg-[F9F9F9] px-4 ">
       <Head>
@@ -293,7 +311,7 @@ const Index = () => {
               <thead className="my-3 fontFamily border-b border-[DFDFDF] uppercase">
                 <tr className="text-[#777777] text-left px-4 py-2">
                   <th className="px-2 w-30 font-[500] text-center text-sm md:text-[14px]">
-                    <Checkbox />
+                    <Checkbox onChange={handleHeaderCheckboxChange} />
                   </th>
                   <th className=" font-[500] text-center text-sm md:text-[14px]">
                     Name
