@@ -162,8 +162,9 @@ const Index = ({children}) => {
     ];
 
     return (
-        <Layout style={
+        <Layout  style={
             {minHeight: "100vh"}
+            
         }>
             <Sidebar role={"admin"}/>
             <Layout className="site-layout">

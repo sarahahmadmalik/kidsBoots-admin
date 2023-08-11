@@ -107,7 +107,7 @@ const Sidebar = ({ role }) => {
         type="text"
         style={{
           position: "absolute",
-          bottom: "4rem",
+          bottom: "0",
           left: "40%",
           transform: "translateX(-50%)",
           

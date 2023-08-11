@@ -54,11 +54,13 @@
 
 .ant-layout-sider {
   box-shadow: 4px 11px 12px rgba(0, 0, 0, 0.12) !important;
+  height: 100vh !important;
+  margin: 0 !important;
 } 
 
 .sidebar {
   overflow-y: auto;
-  max-height: 80vh !important;
+  min-height: 100vh !important;
   color: black;
   /* padding-bottom: 1rem !important; */
 }
@@ -124,6 +126,7 @@
 body{
   background: #F9F9F9;
 }
+
 
 .submit-button {
   background: #a51f6c !important;
