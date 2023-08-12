@@ -125,6 +125,7 @@ const Sidebar = ({ role }) => {
         Log Out
       </Button>
       
+      
     </Sider>
   );
 };

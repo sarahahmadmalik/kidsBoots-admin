@@ -249,7 +249,7 @@ const handleHeaderCheckboxChange = () => {
         <title>Buyers</title>
       </Head>
       <div className="h-full w-full my-4 py-3  bg-[#FFFFFF] rounded-md">
-        <div className="w-full px-3  py-1 border-b border-[#DFDFDF]">
+        <div className="w-full  px-3  py-1 border-b border-[#DFDFDF]">
           <div className="flex justify-between items-center w-full px-3 pb-4 flex-wrap-reverse">
             <div className="relative flex items-center w-full sm:w-auto">
               <Image

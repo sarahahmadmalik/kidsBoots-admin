@@ -526,13 +526,38 @@ const Index = () => {
                       <p className="text-base">{order.customer}</p>
                     </div>
 
-                    <div className="w-10 h-10 py-3 rounded-full border border-[#A51F6C] flex items-center justify-center">
-                      <Image
-                        src="/images/more.svg"
-                        width={4}
-                        height={4}
-                        alt="More Options"
-                      />
+                    <div className="w-10 h-10 rounded-full border border-[#A51F6C] flex items-center justify-center">
+                    <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => handleEditModalOpen(order)}>
+                      <EditOutlined /> Edit
+                    </Menu.Item>
+                    <Menu.Item
+                      onClick={() => handleDelete()}
+                      className="delete-option"
+                    >
+                      <DeleteOutlined /> Delete
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={["click"]}
+                placement="bottomRight"
+                visible={selectedOrderId === order.id}
+                onVisibleChange={(visible) => {
+                  if (!visible) {
+                    setSelectedOrderId(null);
+                  }
+                }}
+              >
+                <Button
+                  icon={<MoreOutlined size={26} />}
+                  className="more-button"
+
+                  onClick={() => handleActionsToggle(order.id)}
+                  style={{color: "#A51F6C", fontWeight: "bolder"}}
+                />
+              </Dropdown>
                     </div>
                   </div>
 
